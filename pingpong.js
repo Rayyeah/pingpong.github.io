@@ -11,62 +11,34 @@ document.addEventListener("DOMContentLoaded", function () {
     let ballSpeedX = 5;
     let ballSpeedY = 5;
 
-    let leftPaddleY = 160;
+    let leftPaddleY = 170;
     let rightPaddleY = 160;
-    const paddleSpeed = 15;
+    const paddleSpeed = 20;
 
     let leftPlayerScore = 0;
     let rightPlayerScore = 0;
 
     const maxScore = 20;
 
-    // Move right paddle
+    console.log(c);
+
+    // Move right paddle switch it to left 
     document.addEventListener("keydown", function (event) {
-        if (event.key === "w" && rightPaddleY > 0) {
-            rightPaddleY -= paddleSpeed;
-        } else if (event.key === "s" && rightPaddleY < gameContainer.clientHeight - 80) {
-            rightPaddleY += paddleSpeed;
+        if (event.key === "w" && leftPaddleY > 0) {
+            leftPaddleY -= paddleSpeed;
+        } else if (event.key === "s" && leftPaddleY < gameContainer.clientHeight - 80) {
+            leftPaddleY += paddleSpeed;
         }
     });
     // Move left paddle
     document.addEventListener("keydown", function (event) {
-        if (event.key === "ArrowUp" && leftPaddleY > 0) {
-            leftPaddleY -= paddleSpeed;
-        } else if (event.key === "ArrowDown" && leftPaddleY < gameContainer.clientHeight - 80) {
-            leftPaddleY += paddleSpeed;
+        if (event.key === "ArrowUp" && rightPaddleY > 0) {
+            rightPaddleY -= paddleSpeed;
+        } else if (event.key === "ArrowDown" && rightPaddleY < gameContainer.clientHeight - 80) {
+            rightPaddleY += paddleSpeed;
         }
     });
 
-    // Toggle fullscreen
-    document.addEventListener("keydown", function (event) {
-        if (event.key === "f") {
-            toggleFullscreen();
-        }
-    });
-
-    function toggleFullscreen() {
-        if (!document.fullscreenElement) {
-            gameContainer.click();
-        } else {
-            document.exitFullscreen();
-        }
-    }
-
-    // Additional event listener to handle click for fullscreen
-    gameContainer.addEventListener("click", function () {
-        if (!document.fullscreenElement) {
-            gameContainer.requestFullscreen();
-        }
-    });
-
-    // Listen for fullscreenchange event
-    document.addEventListener("fullscreenchange", function () {
-        if (document.fullscreenElement) {
-            scoreboard.style.backgroundColor = "beige";
-        } else {
-            scoreboard.style.backgroundColor = "";
-        }
-    });
 
     function update() {
         if (leftPlayerScore >= maxScore || rightPlayerScore >= maxScore) {
@@ -119,12 +91,11 @@ document.addEventListener("DOMContentLoaded", function () {
     function showWinner() {
         let winnerMessage = "";
         if (leftPlayerScore >= maxScore) {
-            winnerMessage = "Left Player Wins!";
+            winnerMessage = "Player One Wins!";
         } else if (rightPlayerScore >= maxScore) {
-            winnerMessage = "Right Player Wins!";
+            winnerMessage = "Player Two Wins!";
         }
 
-        // Display the winner message in the HTML
         winnerDisplay.innerText = winnerMessage;
     }
 
